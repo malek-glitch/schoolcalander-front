@@ -1,0 +1,477 @@
+openapi: "3.1.0"
+info:
+  title: "schoolCalender API"
+  description: "schoolCalender API"
+  version: "1.0.0"
+servers:
+  - url: "https://schoolCalender"
+paths:
+  /teacher:
+    post:
+      summary: "POST teacher"
+      operationId: "createTeacher"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TeacherDto"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/TeacherDto"
+    get:
+      summary: "GET teacher"
+      operationId: "getAllTeachers"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/TeacherDto"
+  /teacher/{id}:
+    get:
+      summary: "GET teacher/{id}"
+      operationId: "getTeacherById"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/TeacherDto"
+  /teacher/{id}/sessions:
+    get:
+      summary: "GET teacher/{id}/sessions"
+      operationId: "getAllTeacherSessions"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/SessionDto"
+  /classroom:
+    put:
+      summary: "PUT classroom"
+      operationId: "update"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClassroomDto"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ClassroomDto"
+    post:
+      summary: "POST classroom"
+      operationId: "save"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClassroomDto"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ClassroomDto"
+    get:
+      summary: "GET classroom"
+      operationId: "findAll"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/ClassroomDto"
+  /classroom/{id}:
+    delete:
+      summary: "DELETE classroom/{id}"
+      operationId: "deleteById"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "boolean"
+    get:
+      summary: "GET classroom/{id}"
+      operationId: "findById"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ClassroomDto"
+  /classroom/{id}/students:
+    get:
+      summary: "GET classroom/{id}/students"
+      operationId: "getClassroomStudents"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/StudentDto"
+  /classroom/{id}/sessions:
+    get:
+      summary: "GET classroom/{id}/sessions"
+      operationId: "getClassroomSessions"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/SessionDto"
+  /session:
+    post:
+      summary: "POST session"
+      operationId: "createSession"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SessionDto"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SessionDto"
+  /student:
+    post:
+      summary: "POST student"
+      operationId: "create"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StudentDto"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/StudentDto"
+  /student/{id}:
+    delete:
+      summary: "DELETE student/{id}"
+      operationId: "delete"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "boolean"
+    get:
+      summary: "GET student/{id}"
+      operationId: "get"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/StudentDto"
+  /auth/login:
+    post:
+      summary: "POST auth/login"
+      operationId: "login"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/LoginResponse"
+  /auth/login2:
+    post:
+      summary: "POST auth/login2"
+      operationId: "login2"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Authentication"
+  /auth/type:
+    get:
+      summary: "GET auth/type"
+      operationId: "getUserType"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Response"
+components:
+  schemas:
+    TeacherDto:
+      type: "object"
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+          nullable: true
+        username:
+          type: "string"
+          nullable: true
+        password:
+          type: "string"
+          nullable: true
+        email:
+          type: "string"
+          nullable: true
+        phone:
+          type: "string"
+          nullable: true
+        address:
+          type: "string"
+          nullable: true
+        name:
+          type: "string"
+          nullable: true
+        department:
+          type: "string"
+          nullable: true
+    ClassroomDto:
+      type: "object"
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+          nullable: true
+        name:
+          type: "string"
+          nullable: true
+        description:
+          type: "string"
+          nullable: true
+    SessionDto:
+      type: "object"
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+          nullable: true
+        subject:
+          type: "string"
+          nullable: true
+        classroom:
+          nullable: true
+          $ref: "#/components/schemas/ClassroomDto"
+        teacher:
+          nullable: true
+          $ref: "#/components/schemas/TeacherDto"
+        day:
+          type: "string"
+          nullable: true
+          enum:
+            - "Monday"
+            - "Tuesday"
+            - "Wednesday"
+            - "Thursday"
+            - "Friday"
+            - "Saturday"
+            - "Sunday"
+        time:
+          type: "string"
+          nullable: true
+          enum:
+            - "S1"
+            - "S2"
+            - "S3"
+            - "S4"
+            - "S5"
+            - "S6"
+        room:
+          type: "string"
+          nullable: true
+          enum:
+            - "I1"
+            - "I2"
+            - "I3"
+            - "I4"
+            - "I5"
+            - "I6"
+            - "I7"
+            - "I8"
+            - "I9"
+            - "I10"
+            - "I11"
+            - "I12"
+            - "I13"
+    Date:
+      type: "object"
+      properties: { }
+    StudentDto:
+      type: "object"
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+          nullable: true
+        username:
+          type: "string"
+          nullable: true
+        password:
+          type: "string"
+          nullable: true
+        email:
+          type: "string"
+          nullable: true
+        phone:
+          type: "string"
+          nullable: true
+        address:
+          type: "string"
+          nullable: true
+        fullName:
+          type: "string"
+          nullable: true
+        birthday:
+          nullable: true
+          $ref: "#/components/schemas/Date"
+        gender:
+          type: "string"
+          nullable: true
+          enum:
+            - "Male"
+            - "Female"
+        classroom:
+          nullable: true
+          $ref: "#/components/schemas/ClassroomDto"
+    LoginRequest:
+      type: "object"
+      properties:
+        username:
+          type: "string"
+          nullable: true
+        password:
+          type: "string"
+          nullable: true
+    LoginResponse:
+      type: "object"
+      properties:
+        token:
+          type: "string"
+          nullable: true
+        expireIn:
+          type: "string"
+          format: "date-time"
+          nullable: true
+    Authentication:
+      type: "object"
+      properties: { }
+    Response:
+      type: "object"
+      properties:
+        type:
+          type: "string"
+          nullable: true
+        id:
+          type: "integer"
+          format: "int64"
+          nullable: true
